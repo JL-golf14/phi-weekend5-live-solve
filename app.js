@@ -1,9 +1,13 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var router = require('./server/routes/routes.js')
+var bodyParser = require('body-parser');
+var employees = require('./server/routes/employees.js')
 
-app.use('/inboundURLbase',router)
+// middleware
+app.use(bodyParser.json());
+
+app.use('/employees', employees);
 
 // Serve back static files
 app.use(express.static(path.join(__dirname, './public')));
