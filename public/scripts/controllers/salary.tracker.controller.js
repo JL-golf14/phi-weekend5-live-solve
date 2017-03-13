@@ -4,6 +4,7 @@ myApp.controller('SalaryTrackerController', ['$http', function($http) {
   var self = this;
   self.newEmployee = {};  // object connected to HTML form on view
   self.employees = [];
+  self.monthlyTotal = 0;
 
 
   getEmployees();
@@ -12,6 +13,14 @@ myApp.controller('SalaryTrackerController', ['$http', function($http) {
   function getEmployees() {
     $http.get('/employees').then(function(response) {
       self.employees = response.data;
+      getSalaries();
+    });
+  }
+
+  function getSalaries() {
+    $http.get('/employees/salaries').then(function(response) {
+      console.log('total from server: ', response.data);
+      self.monthlyTotal = Math.round(response.data[0].salary_total / 12);
     });
   }
 
@@ -24,6 +33,12 @@ myApp.controller('SalaryTrackerController', ['$http', function($http) {
       getEmployees();
     });
   };
+
+  self.toggleActive = function(employeeID) {
+    $http.put('/employees/' + employeeID).then(function(response) {
+      getEmployees();
+    });
+  }
 
 
 }]); // end controller code block

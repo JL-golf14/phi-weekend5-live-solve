@@ -33,7 +33,8 @@ Test Message: {{tracker.testMessage}}
     <p>{{empInfo.employee_id}}</p>
     <p>{{empInfo.title}}</p>
     <p>{{empInfo.annual_salary}}</p>
-    <button>Remove</button>
+    <button ng-if="empInfo.active" ng-click="tracker.toggleActive(empInfo.id)">Mark as Inactive</button>
+    <button ng-if="!empInfo.active" ng-click="tracker.toggleActive(empInfo.id)">Mark as Active</button>
   </div>
-  <p id="companySalaries">Monthly Salary Total: $<span id="salaryTotal">0.00</span></p>
+  <p id="companySalaries">Monthly Salary Total: <span id="salaryTotal">{{tracker.monthlyTotal | currency}}</span></p>
 </section>

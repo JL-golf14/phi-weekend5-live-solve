@@ -9,29 +9,77 @@ var config = {
 };
 var pool = new pg.Pool(config);
 
-  // sample GET request
-
 router.get('/', function(req, res) {
-console.log('hit my get all tasks route');
-pool.connect(function(err, client, done) {
-  if(err){
-    console.log(err);
-    res.sendStatus(500);
-  }else{
-    // SELECT * FROM task;
-    client.query('SELECT * FROM employees', function(err, result) {
-      done(); // close the connection db
+  console.log('hit my get all tasks route');
+  pool.connect(function(err, client, done) {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }else{
+      // SELECT * FROM task;
+      client.query('SELECT * FROM employees ORDER BY id ASC', function(err, result) {
+        done(); // close the connection db
 
-      if(err){
-        console.log(err);
-        res.sendStatus(500); // the world exploded
-      }else{
-        console.log(result.rows);
-        res.status(200).send(result.rows);
-      }
-    });
-  }
+        if(err){
+          console.log(err);
+          res.sendStatus(500); // the world exploded
+        }else{
+          console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
 });
+
+
+// get salaries
+router.get('/salaries', function(req, res) {
+  console.log('getting all salaries');
+  pool.connect(function(err, client, done) {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }else{
+      // SELECT * FROM task;
+      client.query('SELECT SUM(annual_salary) AS salary_total FROM employees;', function(err, result) {
+        done(); // close the connection db
+
+        if(err){
+          console.log(err);
+          res.sendStatus(500); // the world exploded
+        }else{
+          console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
+});
+
+router.put('/:id', function(req, res) {
+  console.log('put route');
+  var employee_id = req.params.id;
+
+  pool.connect(function(err, client, done) {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      // SELECT * FROM task;
+      client.query('UPDATE employees SET active = NOT active WHERE id = $1', [employee_id], function(err, result) {
+        done(); // close the connection db
+
+        if(err){
+          console.log(err);
+          res.sendStatus(500); // things are maybe kinda bad
+        }else{
+          console.log(result.rows);
+          res.sendStatus(204);
+        }
+      });
+    }
+  });
 });
 
 router.post('/', function(req, res) {
