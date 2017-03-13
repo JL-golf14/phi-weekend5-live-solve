@@ -42,7 +42,7 @@ router.get('/salaries', function(req, res) {
       res.sendStatus(500);
     }else{
       // SELECT * FROM task;
-      client.query('SELECT SUM(annual_salary) AS salary_total FROM employees;', function(err, result) {
+      client.query('SELECT SUM(annual_salary) AS salary_total FROM employees WHERE active = TRUE', function(err, result) {
         done(); // close the connection db
 
         if(err){
