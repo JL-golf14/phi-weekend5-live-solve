@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Salary Tracker</title>
+  <script type="text/javascript" src="vendor/jquery-3.1.0.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+
+  <link rel="stylesheet" href="stylesheet.css" />
+</head>
+<body>
+  <section id="empInput" data-section="employee entry">
+    <h1>Enter Employee</h1>
+    <form id="empForm">
+      <label for="empFirstName">First Name:
+        <input type="text" id="empFirstName" name="empFirstName" />
+      </label>
+
+      <label for="empLastName">Last Name:
+        <input type="text" id="empLastName" name="empLastName" />
+      </label>
+
+      <label for="empIDNumber">ID Number:
+        <input type="text" id="empIDNumber" name="empIDNumber" />
+      </label>
+
+      <label for="empTitle">Title:
+        <input type="text" id="empTitle" name="empTitle" />
+      </label>
+
+      <label for="empSalary">Annual Salary:
+        <input type="number" id="empSalary" name="empSalary" />
+      </label>
+
+      <input type="submit" value="Add Employee" />
+    </form>
+  </section>
+  <section id="empContainer">
+    <h1>Employees</h1>
+    <p id="companySalaries">Monthly Salary Total: $<span id="salaryTotal">0.00</span></p>
+  </section>
+
+</body>
+</html>

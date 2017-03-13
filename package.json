@@ -1,0 +1,21 @@
+{
+  "name": "phi-weekend-5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-route": "^1.6.3",
+    "body-parser": "^1.17.1",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.2",
+    "pg": "^6.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "Kris (and Tom)",
+  "license": "ISC"
+}
