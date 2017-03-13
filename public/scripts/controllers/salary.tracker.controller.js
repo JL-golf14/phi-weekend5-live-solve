@@ -1,6 +1,29 @@
-myApp.controller('SalaryTrackerController', function() {
-  var self = this;
+myApp.controller('SalaryTrackerController', ['$http', function($http) {
   console.log('salary tracker controller running');
-  self.testMessage = 'Hello World, this is the salary tracker controller test message';
 
-}); // end controller code block
+  var self = this;
+  self.newEmployee = {};  // object connected to HTML form on view
+  self.employees = [];
+
+
+  getEmployees();
+
+  // get all employee data
+  function getEmployees() {
+    $http.get('/employees').then(function(response) {
+      self.employees = response.data;
+    });
+  }
+
+  // add employee from form
+  self.addEmployee = function() {
+    console.log(self.newEmployee);
+    // send to server
+    $http.post('/employees', self.newEmployee).then(function(response) {
+      self.newEmployee = {};
+      getEmployees();
+    });
+  };
+
+
+}]); // end controller code block

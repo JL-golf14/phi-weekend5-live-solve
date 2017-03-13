@@ -1,32 +1,39 @@
 Test Message: {{tracker.testMessage}}
 
-  <section id="empInput" data-section="employee entry">
-    <h1>Enter Employee</h1>
-    <form id="empForm">
-      <label for="empFirstName">First Name:
-        <input type="text" id="empFirstName" name="empFirstName" />
-      </label>
+<section id="empInput" data-section="employee entry">
+  <h1>Enter Employee</h1>
+   <form id="empForm" ng-submit="tracker.addEmployee()">
+    <label for="empFirstName">First Name:
+      <input type="text" id="empFirstName" name="empFirstName" ng-model="tracker.newEmployee.first_name" />
+    </label>
 
-      <label for="empLastName">Last Name:
-        <input type="text" id="empLastName" name="empLastName" />
-      </label>
+    <label for="empLastName">Last Name:
+      <input type="text" id="empLastName" name="empLastName" ng-model="tracker.newEmployee.last_name" />
+    </label>
 
-      <label for="empIDNumber">ID Number:
-        <input type="text" id="empIDNumber" name="empIDNumber" />
-      </label>
+    <label for="empIDNumber">ID Number:
+      <input type="text" id="empIDNumber" name="empIDNumber" ng-model="tracker.newEmployee.employee_id"/>
+    </label>
 
-      <label for="empTitle">Title:
-        <input type="text" id="empTitle" name="empTitle" />
-      </label>
+    <label for="empTitle">Title:
+      <input type="text" id="empTitle" name="empTitle" ng-model="tracker.newEmployee.title" />
+    </label>
 
-      <label for="empSalary">Annual Salary:
-        <input type="number" id="empSalary" name="empSalary" />
-      </label>
+    <label for="empSalary">Annual Salary:
+      <input type="number" id="empSalary" name="empSalary" ng-model="tracker.newEmployee.annual_salary"/>
+    </label>
 
-      <input type="submit" value="Add Employee" />
-    </form>
-  </section>
-  <section id="empContainer">
-    <h1>Employees</h1>
-    <p id="companySalaries">Monthly Salary Total: $<span id="salaryTotal">0.00</span></p>
-  </section>
+    <input type="submit" value="Add Employee" />
+  </form>
+</section>
+<section id="empContainer">
+  <h1>Employees</h1>
+  <div class="employee" ng-repeat="empInfo in tracker.employees">
+    <h2>{{empInfo.first_name}} {{empInfo.last_name}}</h2>
+    <p>{{empInfo.employee_id}}</p>
+    <p>{{empInfo.title}}</p>
+    <p>{{empInfo.annual_salary}}</p>
+    <button>Remove</button>
+  </div>
+  <p id="companySalaries">Monthly Salary Total: $<span id="salaryTotal">0.00</span></p>
+</section>
